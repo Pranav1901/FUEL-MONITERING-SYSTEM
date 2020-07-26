@@ -1,0 +1,103 @@
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// include the library code:
+#include <SoftwareSerial.h>
+
+// initialize the library with the numbers of the interface pins
+SoftwareSerial mySerial(9, 10);
+
+// intialize the variable for taking analog input
+int fuelValue = A0; 
+int data = 0;
+int data2= 0;
+
+void setup() { 
+  
+  // Setting the baud rate of GSM Module
+  mySerial.begin(9600);
+  // Setting the baud rate of Serial Monitor (Arduino)
+  Serial.begin(9600); 
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  
+   pinMode(8, OUTPUT);
+   pinMode(fuelValue, INPUT);
+   lcd.setCursor(1,0);
+  // Print a message to the LCD.
+   lcd.print ("FUEL THEFT ");
+   // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0):
+   lcd.setCursor(0,1);
+   lcd.print (" DETECTOR ALARM ");
+  // Giving a Delay of 3 seconds
+   delay(3000);
+  // Clear all the message from the LCD
+   lcd.clear();
+  // Taking an input 
+   data = analogRead(fuelValue);
+}
+
+void loop() {
+  // Taking second input
+ data2 =analogRead(fuelValue);
+ // Print a message to the Serial moniter.
+ Serial.print("fuel Level: ");
+ Serial.println(data);
+ lcd.print ("FUEL SCAN IS ON");
+ lcd.setCursor(0,1);
+ delay(1000);
+ //Checking the condition
+ // if the below condition is true then it will enter the if part
+ if ( data > data2) 
+ {
+   // Send message function is called
+  SendMessage();
+   // lights the led
+  digitalWrite(8, HIGH);
+  Serial.print("FUEL DETECT ALARM");
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("FUEL LEVEL CHANGED");
+  lcd.setCursor(0,1);
+  lcd.print("SMS SENT");
+  delay(4000);
+   // led gets off
+  digitalWrite(8, LOW);
+   delay(2000);
+  data = data2;
+ 
+ }
+  // if the condtion is false it will enter the else part
+ else
+ { 
+  Serial.print("fuel Level Normal");
+ // lcd.clear();
+  lcd.setCursor(0,1);
+  lcd.print("LEVEL NORMAL");
+   delay(1000);
+}
+ 
+  lcd.clear();
+ 
+}
+// Send Message funtion 
+void SendMessage()
+{
+  Serial.println("I am in send");
+  Serial.println("Message sent of fuel theft");
+  // TO set the SIM900 to text mode
+  // mySerial.println("AT+CMGF=1"); 
+  //  delay(1000); 
+  //send SMS to a number:
+  // mySerial.println("AT+CMGS=\"+91900xxxxxxx\"\r");
+  // delay(1000);
+  mySerial.println("Fuel level is changed . check your vehicle");
+  // delay(100);
+  // mySerial.println((char)26);
+  delay(2000);
+}
+ 
