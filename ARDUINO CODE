@@ -68,7 +68,7 @@ void loop() {
    // led gets off
   digitalWrite(8, LOW);
    delay(2000);
-  data = data2;
+  data1 = data2;
  
  }
   // if the condtion is false it will enter the else part
