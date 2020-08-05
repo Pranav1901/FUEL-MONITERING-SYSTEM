@@ -12,7 +12,7 @@ SoftwareSerial mySerial(9, 10);
 
 // intialize the variable for taking analog input
 int fuelValue = A0; 
-int data = 0;
+int data1 = 0;
 int data2= 0;
 
 void setup() { 
