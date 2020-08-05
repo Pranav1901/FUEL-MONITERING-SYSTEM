@@ -38,7 +38,7 @@ void setup() {
   // Clear all the message from the LCD
    lcd.clear();
   // Taking an input 
-   data = analogRead(fuelValue);
+   data1 = analogRead(fuelValue);
 }
 
 void loop() {
@@ -52,7 +52,7 @@ void loop() {
  delay(1000);
  //Checking the condition
  // if the below condition is true then it will enter the if part
- if ( data > data2) 
+ if ( data1 > data2) 
  {
    // Send message function is called
   SendMessage();
