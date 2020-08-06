@@ -46,7 +46,7 @@ void loop() {
  data2 =analogRead(fuelValue);
  // Print a message to the Serial moniter.
  Serial.print("fuel Level: ");
- Serial.println(data);
+ Serial.println(data1);
  lcd.print ("FUEL SCAN IS ON");
  lcd.setCursor(0,1);
  delay(1000);
